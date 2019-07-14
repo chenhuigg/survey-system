@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width">
+		<title>管理界面</title>
+		<link rel="stylesheet" href="bootstrap/css/bootstrap.min.css" />
+		<script type="text/javascript" src="js/jquery-1.11.0.min.js" ></script>
+		<script type="text/javascript" src="bootstrap/js/bootstrap.min.js" ></script>
+	</head>
+	<body style="padding: 10px;">
+		<!--顶部导航-->
+		<nav class="navbar navbar-default" style="margin-bottom:10px;background-color:white;border: 0;border-bottom: 1px solid gainsboro;">
+			<div class="container" >
+				<!--最终显示-->
+				<div class="navbar-header" >
+						<div class="navbar-brand">
+							<a href="index.html" style="text-decoration: none;font-size: 20px;color: black;font-weight: bolder;">问卷网</a>
+						</div>
+					<div class="navbar-toggle" data-toggle="collapse" data-target=".collapse">
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+					</div>
+				</div>
+				<!--折叠部分-->
+				<div class="pull-right navbar-collapse collapse" style="height: 200px;">
+					<ul class="navbar-nav nav navbar-btn">
+						<li><div class="btn" style="color: gray;font-size: 18px;"><a href="my-wj.html" style="color: gray;text-decoration: none;">参与调查</a></div></li>
+						<li class="dropdown">
+							<span class="dropdown-toggle btn" data-toggle="dropdown" style="color: gray;font-size: 18px;" >个人中心</span>
+							<ul class="dropdown-menu">
+								<li><a href="my-wj.html">我的问卷</a></li>
+								<li><a>我的信息</a></li>
+								<li><a href="user-login.html">切换用户</a></li>
+								<li><a href="index.html">注销</a></li>
+							</ul>
+						</li>
+						<li><div class="btn" style="color: gray;font-size: 18px;"><a href="edit-wj.html" style="color: gray;text-decoration: none;">创建问卷</a></div></li>
+					</ul>
+				</div>
+			</div>
+		</nav>
+		<div style="width: 200px;font-size: 16px;line-height: 30px;">
+			<ul class="list-group">
+				<li class="list-group-item">
+					<span class="list glyphicon glyphicon-list">系统管理</span>
+					<ul style="list-style: none;">
+						<li><a href="major-manager.html">专业管理</a></li>
+						<li><a href="list-wj.html">问卷管理</a></li>
+					</ul>
+				</li>
+				<!--<li class="list-group-item">
+					<span class="list glyphicon glyphicon-list">权限管理</span>
+					<ul style="list-style: none;">
+						<li><a href="#">用户维护</a></li>
+						<li><a href="#">角色维护</a></li>
+						<li><a href="#">权限维护</a></li>
+					</ul>
+				</li>-->
+				<li class="list-group-item">
+					<span class="list glyphicon glyphicon-list">数据管理</span>
+					<ul style="list-style: none;">
+						<li><a href="same-grade.html">同届不同科目</a></li>
+						<li><a href="same-subject.html">同科目不同届</a></li>
+					</ul>
+				</li>
+			</ul>
+		</div>
+		
+		
+	</body>
+</html>
