@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>发布问卷</title>
+	</head>
+	<link rel="stylesheet" href="bootstrap/css/bootstrap.min.css" />
+	<body>
+		<top id="top"></top>
+		<!--选项-->
+		<div class="container form-inline">
+			<select class="form-control">
+				<option>专业</option>
+				<option>计算机科学与技术</option>
+				<option>软件工程</option>
+			</select>
+			
+			<select class="form-control">
+				<option>年级</option>
+				<option>2016级</option>
+				<option>2017级</option>
+				<option>2018级</option>
+				<option>2019级</option>
+			</select>
+			<div class="btn btn-success">查询</div>
+		</div><br /><br />
+		<div class="form-inline row">
+			<div class="col-sm-5 text-center">
+				<label>未发布的班级</label><br />
+				<select id="left" class="form-control" multiple="multiple" style="min-width: 180px;overflow-y: auto;">
+					<option>游戏开发实训游戏开发实训</option>
+					<option>Android实训</option>
+					<option>Android实训2</option>
+					<option>Android实训3</option>
+					<option>Android实训4</option>
+					<option>Android实训5</option>
+				</select>
+			</div>
+			<div class="col-sm-2 text-center" style="padding-top: 30px;padding-bottom: 30px;">
+				<div id="to-right" class="btn btn-default">&gt;</div><br /><br />
+				<div id="to-left" class="btn btn-default">&lt;</div>
+			</div>
+			<div class="col-sm-5 text-center">
+				<label>已发布的班级</label><br />
+				<select id="right" class="form-control" multiple="multiple" style="min-width: 180px;overflow-y: auto;">
+					<!--<option>游戏开发实训</option>
+					<option>Android实训</option>-->
+				</select>
+			</div>
+		</div><br /><br />
+	</body>
+	<script type="text/javascript" src="js/jquery-1.11.0.min.js" ></script>
+	<script type="text/javascript" src="bootstrap/js/bootstrap.min.js" ></script>
+	<script src="node_modules/vue/dist/vue.min.js"></script>
+	<script type="text/javascript" src="js/nav.js" ></script>
+	<script>
+		
+		
+	</script>
+</html>

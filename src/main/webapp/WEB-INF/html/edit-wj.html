@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width">
+		<title>编辑问卷</title>
+		<link rel="stylesheet" href="bootstrap/css/bootstrap.min.css" />
+		<style>
+			.quest{
+				padding: 3px;
+				border: 1px solid white;
+			}
+			.quest:hover{
+				border:1px solid dodgerblue;
+			}
+			
+		</style>
+	</head>
+	<body style="padding: 5px;">
+		
+		<top id="top"></top>
+		
+		<!--问卷主体-->
+		<div class="container">
+			<form id="form" class="form center-block" style="width: -webkit-max();">
+				<!--问卷标题-->
+				<div class="form-group">
+					<textarea class="form-control text-center" style="font-size: 20px;" placeholder="请输入问卷标题"></textarea>
+				</div>
+				
+				<!--问题容器，用来装问题-->
+				<div>
+					
+				</div>
+				
+				<!--添加问题-->
+				<div id="add-question" class="form-group">
+					<div class="btn btn-warning btn-block">添加问题</div>
+				</div>
+						
+				<!--发布问卷-->
+				<div class="form-group text-center row">
+					<div class="col-xs-4 col-xs-offset-2">
+						<div class="input-group">
+							<span class="input-group-addon">版本号</span>
+							<input id="edition" :value="new Date().getFullYear()" type="number" class="form-control" />
+						</div>
+					</div>
+					<div class="col-xs-4">
+						<div class="btn btn-success">完成问卷</div>
+					</div>
+				</div>
+				
+				<!--问题-->
+				<!--<div class="quest form-group">
+					<div class="pull-right">
+						<span class="btn btn-xs btn-primary">上移</span>
+						<span class="btn btn-xs btn-primary">下移</span>
+						<span class="btn btn-xs btn-primary">删除</span>
+					</div><br />
+					<span style="font-size: 16px;color:gray;">请编辑问题</span>
+					<textarea class="form-control"></textarea>
+				</div>-->
+				
+			</form>
+		</div>
+		
+	</body>
+	<script type="text/javascript" src="js/jquery-1.11.0.min.js" ></script>
+	<script type="text/javascript" src="bootstrap/js/bootstrap.min.js" ></script>
+	<script src="node_modules/vue/dist/vue.min.js"></script>
+	<script type="text/javascript" src="js/nav.js" ></script>
+	<script>
+		//问题数量
+		var num=0;
+		//添加问题
+		$("#add-question").click(function(){
+			var temp="";
+			temp+="<div class='quest "+num+" form-group'>";
+			temp+="<div class='pull-right'>";
+			temp+="<span class='btn btn-xs btn-primary' onclick='up("+num+")'>上移</span>";
+			temp+="<span class='btn btn-xs btn-primary' onclick='down("+num+")'>下移</span>";
+			temp+="<span class='btn btn-xs btn-primary' onclick='del("+num+")'>删除</span>";
+			temp+="</div><br />";
+			temp+="<span style='font-size: 16px;color:gray;'>请编辑问题</span>";
+			temp+="<textarea class='form-control'></textarea>";
+			temp+="</div>";
+			num++;
+			$(this).prev().append(temp);
+		})
+		//删除问题
+		function del(num){
+			$("."+num).remove();
+		}
+		//上移
+		function up(num){
+			//克隆当前标签
+			var clone=$("."+num).clone(true);
+			//获得上一个标签，将克隆的元素放置其before
+			var prev=$("."+num).prev();
+			prev.before(clone);
+			//删除当前标签
+			$("."+num+":eq(1)").remove();
+		}
+		//下移
+		function down(num){
+			//克隆当前元素
+			var clone=$("."+num).clone();
+			//获得下一个元素，将克隆的元素放置在其after
+			var next=$("."+num).next();
+			next.after(clone);
+			//删除当前标签
+			$("."+num+":eq(-2)").remove();
+		}
+		var edition=new Vue({
+			el:"#edition",
+			
+		})
+	</script>
+</html>

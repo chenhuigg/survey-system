@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width">
+		<title>问卷列表</title>
+		<link rel="stylesheet" href="bootstrap/css/bootstrap.min.css" />
+	</head>
+	<body style="padding: 10px;">
+		<top id="top"></top>
+		
+		<a href="edit-wj.html"><span id="add-major" class="btn btn-success pull-right" style="margin-right: 50px;">新增问卷</span></a>
+		<h3 class="text-center">问卷列表</h3>
+		
+		<table class="table table-hover table-striped text-center">
+			<tr style="font-weight: bold;">
+				<td>问卷ID</td>
+				<td>问卷名称</td>
+				<td>版本号</td>
+				<td>截止时间</td>
+				<td>问卷操作</td>
+			</tr>
+			<tr>
+				<td>1</td>
+				<td>游戏开发实训</td>
+				<td>2016</td>
+				<td>2019-07-31</td>
+				<td>
+					<div class="btn btn-info">发布操作</div>
+					<div class="btn btn-danger">删除</div>
+				</td>
+			</tr>
+			<tr>
+				<td>2</td>
+				<td>Android实训</td>
+				<td>2016</td>
+				<td>2019-07-31</td>
+				<td>
+					<div class="btn btn-info">发布操作</div>
+					<div class="btn btn-danger">删除</div>
+				</td>
+			</tr>
+		</table>
+		
+	</body>
+	<script type="text/javascript" src="js/jquery-1.11.0.min.js" ></script>
+	<script type="text/javascript" src="bootstrap/js/bootstrap.min.js" ></script>
+	<script src="node_modules/vue/dist/vue.min.js"></script>
+	<script type="text/javascript" src="js/nav.js" ></script>
+</html>
