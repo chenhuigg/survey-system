@@ -14,9 +14,10 @@
 		<context:component-scan base-package="cn.edu.pdsu.controller"></context:component-scan>
 		
 		<!-- 配置视图解析器 -->
-		<bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<!-- <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
 			<property name="prefix" value="/WEB-INF/html/"></property>
 			<property name="suffix" value=".html"></property>
-		</bean>
+		</bean> -->
+		
 		
 </beans>

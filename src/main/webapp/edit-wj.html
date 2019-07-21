@@ -25,7 +25,7 @@
 			<form id="form" class="form center-block" style="width: -webkit-max();">
 				<!--问卷标题-->
 				<div class="form-group">
-					<textarea class="form-control text-center" style="font-size: 20px;" placeholder="请输入问卷标题"></textarea>
+					<textarea name="name" class="form-control text-center" style="font-size: 20px;" placeholder="请输入问卷标题"></textarea>
 				</div>
 				
 				<!--问题容器，用来装问题-->
@@ -43,11 +43,11 @@
 					<div class="col-xs-4 col-xs-offset-2">
 						<div class="input-group">
 							<span class="input-group-addon">版本号</span>
-							<input id="edition" :value="new Date().getFullYear()" type="number" class="form-control" />
+							<input id="edition" name="version" :value="new Date().getFullYear()" type="number" class="form-control" />
 						</div>
 					</div>
 					<div class="col-xs-4">
-						<div class="btn btn-success">完成问卷</div>
+						<div id="complete" class="btn btn-success" @click="complete" >完成问卷</div>
 					</div>
 				</div>
 				
@@ -83,7 +83,7 @@
 			temp+="<span class='btn btn-xs btn-primary' onclick='del("+num+")'>删除</span>";
 			temp+="</div><br />";
 			temp+="<span style='font-size: 16px;color:gray;'>请编辑问题</span>";
-			temp+="<textarea class='form-control'></textarea>";
+			temp+="<textarea class='form-control' name='content' ></textarea>";
 			temp+="</div>";
 			num++;
 			$(this).prev().append(temp);
@@ -112,9 +112,32 @@
 			//删除当前标签
 			$("."+num+":eq(-2)").remove();
 		}
+		//生成版本号
 		var edition=new Vue({
-			el:"#edition",
-			
+			el:"#edition"
 		})
+		//提交问卷
+		var complete=new Vue({
+			el:"#complete",
+			methods:{
+				complete(){
+					$.ajax({
+						url:"admin/wj",
+						type:"post",
+						data:$("#form").serialize(),
+						success:function(data){
+							if(data.success){
+								alert("问卷提交成功");
+							}else{
+								alert("问卷提交失败");
+							}
+						}
+					})
+					
+				}
+			}
+		})
+		
+		
 	</script>
 </html>

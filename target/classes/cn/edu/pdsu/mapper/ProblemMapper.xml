@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.edu.pdsu.mapper.ProblemMapper">
+
+	<insert id="saveProblem" >
+		INSERT INTO t_problem VALUES
+		<foreach collection="content" separator="," item="item" index="index">
+			(UUID(),#{item},#{survey_id},100,#{index})
+		</foreach>
+	</insert>
+
+</mapper>

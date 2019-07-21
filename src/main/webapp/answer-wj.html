@@ -21,7 +21,7 @@
 			
 			<!--问题项-->
 			<div class="form-group" style="margin-bottom: 60px;" v-for="question in questions">
-				<span v-text="question.question">
+				<span v-text="question.content">
 					1、在手机APP项目开发和设计过程中，能在教学案例的基础上，扩展和完善现有功能，具有良好的学习态度和一定的创新意识。分数范围（0--100）【填空题】
 				</span>
 				<textarea  name="answer" style="font-size: 16px;" class="form-control answer" placeholder="请输入你的答案"></textarea>
@@ -37,14 +37,11 @@
 	<script src="node_modules/vue/dist/vue.min.js"></script>
 	<script type="text/javascript" src="js/nav.js" ></script>
 	<script>
+		var id=window.location.href.split("?")[1];
+		var questions;
 		var form=new Vue({
 			el:"#form",
-			data:{
-				questions:[
-					{"question":"1、在手机APP项目开发和设计过程中，能在教学案例的基础上，扩展和完善现有功能，具有良好的学习态度和一定的创新意识。分数范围（0--100）【填空题】"},
-					{"question":"1、在手机APP项目开发和设计过程中，能在教学案例的基础上，扩展和完善现有功能，具有良好的学习态度和一定的创新意识。分数范围（0--100）【填空题】"}
-				]
-			},
+			data:questions,
 			methods:{
 				//提交问卷
 				submit(){
@@ -60,6 +57,21 @@
 						//alert("提交数据");
 					}
 				}
+			},
+			beforeCreate(){
+				//获得页面数据
+				$.ajax({
+					url:"user/wj-detail",
+					async:false,
+					data:id,
+					success:function(data){
+						if(data.success){
+							questions=data.data;
+						}else{
+							alert("获取数据失败");
+						}
+					}
+				})
 			}
 		})
 		

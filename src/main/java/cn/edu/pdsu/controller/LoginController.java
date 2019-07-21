@@ -13,20 +13,30 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import cn.edu.pdsu.pojo.AjaxResult;
 import cn.edu.pdsu.pojo.Student;
 import cn.edu.pdsu.service.StudentService;
 
-@RestController
+@Controller
 public class LoginController {
 	@Autowired
 	private StudentService studentService;
 	
+	//用户退出
+	@RequestMapping("/logout")
+	public String logout(HttpSession session) {
+		session.invalidate();
+		return "user-login";
+	}
+	
 	//用户登录
+	@ResponseBody
 	@RequestMapping(value="/u-login",method=RequestMethod.POST)
 	public Object userLogin(Student student,String code,HttpSession session) {
 		AjaxResult ajaxResult=new AjaxResult();

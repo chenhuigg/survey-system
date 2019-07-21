@@ -6,7 +6,14 @@ public class Survey {
 	private int credit;//学分
 	private String term;//学期
 	private String version;//版本号
-	private String expires_time;//过期时间
+	private String create_time;//创建时间
+	
+	public String getCreate_time() {
+		return create_time;
+	}
+	public void setCreate_time(String create_time) {
+		this.create_time = create_time;
+	}
 	public String getId() {
 		return id;
 	}
@@ -36,11 +43,5 @@ public class Survey {
 	}
 	public void setVersion(String version) {
 		this.version = version;
-	}
-	public String getExpires_time() {
-		return expires_time;
-	}
-	public void setExpires_time(String expires_time) {
-		this.expires_time = expires_time;
 	}
 }

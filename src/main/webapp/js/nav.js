@@ -22,8 +22,8 @@ Vue.component("top",{
 							<ul class="dropdown-menu">
 								<li><a href="my-wj.html">我的问卷</a></li>
 								<li><a>我的信息</a></li>
-								<li><a href="user-login.html">切换用户</a></li>
-								<li><a href="index.html">注销</a></li>
+								<li><a href="logout">切换用户</a></li>
+								<li><a href="logout">注销</a></li>
 							</ul>
 						</li>
 						<li><div class="btn" style="color: gray;font-size: 18px;"><a href="edit-wj.html" style="color: gray;text-decoration: none;">创建问卷</a></div></li>
