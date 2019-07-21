@@ -27,7 +27,7 @@
 				<td v-text="survey.version"></td>
 				<td>
 					<div class="btn btn-info">发布操作</div>
-					<div class="btn btn-danger">删除</div>
+					<div class="btn btn-danger" @click="del(survey.id)">删除</div>
 				</td>
 			</tr>
 		</table>
@@ -43,6 +43,24 @@
 		var table=new Vue({
 			el:"#table",
 			data:surveys,
+			methods:{
+				del(id){
+					$.ajax({
+						url:"admin/wj",
+						type:"post",
+						data:{"id":id,"_method":"delete"},
+						success:function(data){
+							if(data.success){
+								alert("删除数据成功");
+								window.location.href="list-wj.html";
+							}else{
+								alert("删除失败");
+							}
+						}
+					})
+				}
+				
+			},
 			beforeCreate(){
 				$.ajax({
 					url:"admin/wj",

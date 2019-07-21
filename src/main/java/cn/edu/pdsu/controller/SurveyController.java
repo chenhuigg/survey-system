@@ -1,5 +1,7 @@
 package cn.edu.pdsu.controller;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -9,6 +11,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
+
+import com.sun.org.apache.bcel.internal.generic.NEW;
 
 import cn.edu.pdsu.pojo.AjaxResult;
 import cn.edu.pdsu.pojo.Problem;
@@ -25,7 +29,7 @@ public class SurveyController {
 	
 	//获得问卷列表
 	@RequestMapping(value="admin/wj",method=RequestMethod.GET)
-	public Object wj() {
+	public Object getWJ() {
 		AjaxResult ajaxResult=new AjaxResult();
 		try {
 			//获得问卷列表
@@ -41,12 +45,13 @@ public class SurveyController {
 	
 	//增加问卷(需要事务)
 	@RequestMapping(value="admin/wj",method=RequestMethod.POST)
-	public Object wjPost(Survey survey,String[] content) {
+	public Object saveWJ(Survey survey,String[] content) {
 		AjaxResult ajaxResult=new AjaxResult();
 		try {
 			//增加问卷
 			String survey_id=UUID.randomUUID().toString();
 			survey.setId(survey_id);
+			survey.setCreate_time(new SimpleDateFormat("yyyy-MM-dd hh:mm:ss").format(new Date()));
 			surveyService.saveSurvey(survey);
 			//增加问题
 			Map<String, Object> map=new HashMap<String, Object>();
@@ -54,6 +59,23 @@ public class SurveyController {
 			map.put("content",content);
 			problemService.saveProblem(map);
 			ajaxResult.setSuccess(true);
+		} catch (Exception e) {
+			ajaxResult.setSuccess(false);
+			e.printStackTrace();
+		}
+		return ajaxResult;
+	}
+	
+	//删除问卷
+	@RequestMapping(value="admin/wj",method=RequestMethod.DELETE)
+	public Object deleteWJ(String id) {
+		AjaxResult ajaxResult=new AjaxResult();
+		try {
+			int i = surveyService.delSurvey(id);
+			System.out.println(i);
+			if(i==1) {
+				ajaxResult.setSuccess(true);
+			}
 		} catch (Exception e) {
 			ajaxResult.setSuccess(false);
 			e.printStackTrace();

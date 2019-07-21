@@ -21,4 +21,8 @@ public class SurveyService {
 		surveyMapper.saveSurvey(survey);
 	}
 
+	public int delSurvey(String id) {
+		return surveyMapper.delSurvey(id);
+	}
+
 }
