@@ -5,42 +5,30 @@
 		<title>发布问卷</title>
 	</head>
 	<link rel="stylesheet" href="bootstrap/css/bootstrap.min.css" />
-	<body style="padding: 10px;">
+	<body style="padding: 10px;" >
 		<top id="top"></top>
 		<!--选项-->
-		<div class="container form-inline">
-			<select class="form-control">
-				<option>专业</option>
-				<option>计算机科学与技术</option>
-				<option>软件工程</option>
+		<form id="form" class="container form-inline">
+			<select class="form-control" name="major">
+				<option value="">专业</option>
+				<option v-for="major in majors" v-text="major.name" :value="major.id"></option>
 			</select>
-			
-			<select class="form-control">
-				<option>年级</option>
-				<option>2016级</option>
-				<option>2017级</option>
-				<option>2018级</option>
-				<option>2019级</option>
+			<select class="form-control" name="grade">
+				<option value="">年级</option>
+				<option v-for="grade in grades" v-text="grade.name" :value="grade.id">2016级</option>
 			</select>
-			<div class="btn btn-success">查询</div>
-		</div><br /><br />
+			<div class="btn btn-success" @click="search">查询</div>
+		</form>
+		
 		<h3 class="text-center">发布管理</h3>
-		<table class="table table-hover table-striped text-center">
+		<table id="table" class="table table-hover table-striped text-center">
 			<tr style="font-weight: bold;">
 				<td>班级ID</td>
 				<td>班级名称</td>
 				<td>过期时间</td>
 				<td>操作</td>
 			</tr>
-			<tr>
-				<td>1</td>
-				<td>计科2班</td>
-				<td class="form-inline"><input type="date" class="form-control"></td>
-				<td>
-					<div class="btn btn-primary">发布</div>
-					<div class="btn btn-danger">删除</div>
-				</td>
-			</tr>
+			
 		</table>
 		<br /><br />
 	</body>
@@ -49,7 +37,75 @@
 	<script src="node_modules/vue/dist/vue.min.js"></script>
 	<script type="text/javascript" src="js/nav.js" ></script>
 	<script>
-		
+		var form=new Vue({
+			el:"#form",
+			data(){
+				return{
+					majors
+				}
+				return{
+					grades
+				}
+			},
+			methods:{
+				//查询班级
+				search(){
+					$.ajax({
+						url:"admin/classes",
+						data:$("#form").serialize(),
+						success:function(data){
+							if(data.success){
+								classes=data.data;
+								var temp=`<tr style='font-weight: bold;'>
+												<td>班级ID</td>
+												<td>班级名称</td>
+												<td>过期时间</td>
+												<td>操作</td>
+											</tr>`;
+								for(var i=0;i<classes.length;i++){
+									temp+=`<tr>
+												<td>`+classes[i].id+`</td>
+												<td>`+classes[i].name+`</td>
+												<td class='form-inline'>
+													<input type='date' class="form-control">
+												</td>
+												<td>
+													<div class="btn btn-primary">发布</div>
+													<div class="btn btn-danger">删除</div>
+												</td>
+											</tr>`
+								}
+								$("#table").html(temp);
+							}else{
+								alert("获取数据失败");
+							}
+						}
+					})
+				}
+			},
+			beforeCreate(){
+				//获取所有专业
+				$.ajax({
+					url:"admin/major",
+					async: false,
+					success:function(data){
+						if(data.success){
+							majors=data.data;
+						}
+					}
+				})
+				//获取所有年级
+				$.ajax({
+					url:"admin/grade",
+					async:false,
+					success:function(data){
+						if(data.success){
+							grades=data.data;
+						}
+					}
+				})
+			}
+		})
 		
 	</script>
 </html>

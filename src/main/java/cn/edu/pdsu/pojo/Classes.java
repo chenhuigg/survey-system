@@ -5,6 +5,15 @@ public class Classes {
 	private String name;
 	private Grade grade;
 	private Major major;
+	
+	private String expires_time;//存放中间表的过期时间
+	
+	public String getExpires_time() {
+		return expires_time;
+	}
+	public void setExpires_time(String expires_time) {
+		this.expires_time = expires_time;
+	}
 	public String getId() {
 		return id;
 	}

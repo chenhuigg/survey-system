@@ -26,7 +26,7 @@
 				</td>
 				<td v-text="survey.version"></td>
 				<td>
-					<div class="btn btn-info">发布操作</div>
+					<div class="btn btn-info" @click="publish(survey.id)">发布操作</div>
 					<div class="btn btn-danger" @click="del(survey.id)">删除</div>
 				</td>
 			</tr>
@@ -44,6 +44,11 @@
 			el:"#table",
 			data:surveys,
 			methods:{
+				//跳转到发布操作
+				publish(id){
+					window.location.href="publish-wj.html?id="+id;
+				},
+				//删除
 				del(id){
 					$.ajax({
 						url:"admin/wj",
