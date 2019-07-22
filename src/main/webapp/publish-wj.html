@@ -5,7 +5,7 @@
 		<title>发布问卷</title>
 	</head>
 	<link rel="stylesheet" href="bootstrap/css/bootstrap.min.css" />
-	<body>
+	<body style="padding: 10px;">
 		<top id="top"></top>
 		<!--选项-->
 		<div class="container form-inline">
@@ -24,30 +24,25 @@
 			</select>
 			<div class="btn btn-success">查询</div>
 		</div><br /><br />
-		<div class="form-inline row">
-			<div class="col-sm-5 text-center">
-				<label>未发布的班级</label><br />
-				<select id="left" class="form-control" multiple="multiple" style="min-width: 180px;overflow-y: auto;">
-					<option>游戏开发实训游戏开发实训</option>
-					<option>Android实训</option>
-					<option>Android实训2</option>
-					<option>Android实训3</option>
-					<option>Android实训4</option>
-					<option>Android实训5</option>
-				</select>
-			</div>
-			<div class="col-sm-2 text-center" style="padding-top: 30px;padding-bottom: 30px;">
-				<div id="to-right" class="btn btn-default">&gt;</div><br /><br />
-				<div id="to-left" class="btn btn-default">&lt;</div>
-			</div>
-			<div class="col-sm-5 text-center">
-				<label>已发布的班级</label><br />
-				<select id="right" class="form-control" multiple="multiple" style="min-width: 180px;overflow-y: auto;">
-					<!--<option>游戏开发实训</option>
-					<option>Android实训</option>-->
-				</select>
-			</div>
-		</div><br /><br />
+		<h3 class="text-center">发布管理</h3>
+		<table class="table table-hover table-striped text-center">
+			<tr style="font-weight: bold;">
+				<td>班级ID</td>
+				<td>班级名称</td>
+				<td>过期时间</td>
+				<td>操作</td>
+			</tr>
+			<tr>
+				<td>1</td>
+				<td>计科2班</td>
+				<td class="form-inline"><input type="date" class="form-control"></td>
+				<td>
+					<div class="btn btn-primary">发布</div>
+					<div class="btn btn-danger">删除</div>
+				</td>
+			</tr>
+		</table>
+		<br /><br />
 	</body>
 	<script type="text/javascript" src="js/jquery-1.11.0.min.js" ></script>
 	<script type="text/javascript" src="bootstrap/js/bootstrap.min.js" ></script>

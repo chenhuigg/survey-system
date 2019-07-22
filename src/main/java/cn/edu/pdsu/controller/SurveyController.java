@@ -72,7 +72,6 @@ public class SurveyController {
 		AjaxResult ajaxResult=new AjaxResult();
 		try {
 			int i = surveyService.delSurvey(id);
-			System.out.println(i);
 			if(i==1) {
 				ajaxResult.setSuccess(true);
 			}
