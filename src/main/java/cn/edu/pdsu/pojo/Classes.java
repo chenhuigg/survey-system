@@ -7,7 +7,14 @@ public class Classes {
 	private Major major;
 	
 	private String expires_time;//存放中间表的过期时间
+	private String classes_id;//用于判断班级是否发布信息
 	
+	public String getClasses_id() {
+		return classes_id;
+	}
+	public void setClasses_id(String classes_id) {
+		this.classes_id = classes_id;
+	}
 	public String getExpires_time() {
 		return expires_time;
 	}

@@ -6,6 +6,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	
 	<select id="getClassesByGradeIdAndMajorId" resultType="cn.edu.pdsu.pojo.Classes">
 		SELECT * FROM t_classes
+		LEFT JOIN t_classes_survey
+		ON classes_id=id AND survey_id=#{survey_id}
 		<where>
 			<if test='major!=null and major!=""'>
 				major_id=#{major}

@@ -12,8 +12,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.sun.org.apache.bcel.internal.generic.NEW;
-
 import cn.edu.pdsu.pojo.AjaxResult;
 import cn.edu.pdsu.pojo.Problem;
 import cn.edu.pdsu.pojo.Survey;

@@ -4,7 +4,6 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Select;
 
-import cn.edu.pdsu.pojo.Classes;
 import cn.edu.pdsu.pojo.Grade;
 
 public interface GradeMapper {

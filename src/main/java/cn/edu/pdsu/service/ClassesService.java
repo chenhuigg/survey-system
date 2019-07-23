@@ -14,8 +14,23 @@ public class ClassesService {
 	@Autowired
 	private ClassesMapper classesMapper;
 	
+	//查询班级信息
 	public List<Classes> getClassesByGradeIdAndMajorId(Map<String, String> map){
 		return classesMapper.getClassesByGradeIdAndMajorId(map);
 	}
+
+	//发布问卷
+	public int inSertClassesSurvey(Map<String, Object> map) {
+		return classesMapper.inSertClassesSurvey(map);
+	}
+
+	public int delClassesSurvey(Map<String, Object> map) {
+		return classesMapper.delClassesSurvey(map);
+	}
+	
+	//查询班级的问卷发布信息
+	/*public List<Classes_Survey> getAllClassesSurvey(String survey_id){
+		return classesMapper.getAllClassesSurvey(survey_id);
+	}*/
 
 }

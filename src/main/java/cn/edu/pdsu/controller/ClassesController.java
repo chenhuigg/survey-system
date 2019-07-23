@@ -19,16 +19,56 @@ public class ClassesController {
 	@Autowired
 	private ClassesService classesService;
 	
-	@RequestMapping(value="/classes",method=RequestMethod.GET)
-	public Object getClassesByMajorIdAndGradeId(String major,String grade) {
+	//查询班级-问卷信息
+	@RequestMapping(value="/classes-wj",method=RequestMethod.GET)
+	public Object getClassesByMajorIdAndGradeId(String major,String grade,String id) {
 		AjaxResult ajaxResult=new AjaxResult();
 		try {
 			Map<String, String> map=new HashMap<String, String>();
 			map.put("major", major);
 			map.put("grade",grade);
+			map.put("survey_id",id);
 			List<Classes> classeses= classesService.getClassesByGradeIdAndMajorId(map);
 			ajaxResult.setData(classeses);
 			ajaxResult.setSuccess(true);
+		} catch (Exception e) {
+			ajaxResult.setSuccess(false);
+			e.printStackTrace();
+		}
+		return ajaxResult;
+	}
+	
+	//发布问卷
+	@RequestMapping(value="/classes-wj",method=RequestMethod.POST)
+	public Object publishWJ(String classes_id,String id) {
+		AjaxResult ajaxResult=new AjaxResult();
+		try {
+			Map<String, Object> map=new HashMap<>();
+			map.put("classes_id", classes_id);
+			map.put("survey_id", id);
+			int i=classesService.inSertClassesSurvey(map);
+			if(i==1) {
+				ajaxResult.setSuccess(true);
+			}
+		} catch (Exception e) {
+			ajaxResult.setSuccess(false);
+			e.printStackTrace();
+		}
+		return ajaxResult;
+	}
+	
+	//删除问卷
+	@RequestMapping(value="/classes-wj",method=RequestMethod.DELETE)
+	public Object delWJ(String classes_id,String id) {
+		AjaxResult ajaxResult=new AjaxResult();
+		try {
+			Map<String, Object> map=new HashMap<>();
+			map.put("classes_id", classes_id);
+			map.put("survey_id", id);
+			int i=classesService.delClassesSurvey(map);
+			if(i==1) {
+				ajaxResult.setSuccess(true);
+			}
 		} catch (Exception e) {
 			ajaxResult.setSuccess(false);
 			e.printStackTrace();
