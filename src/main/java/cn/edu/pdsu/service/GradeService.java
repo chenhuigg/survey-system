@@ -1,6 +1,7 @@
 package cn.edu.pdsu.service;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -16,6 +17,18 @@ public class GradeService {
 	
 	public List<Grade> getAllGrade(){
 		return gradeMapper.getAllGrade();
+	}
+	
+	public int addGrade(Map<String, Object> map) {
+		return gradeMapper.insertGrade(map);
+	}
+
+	public int delGrade(String id) {
+		return gradeMapper.delGrade(id);
+	}
+
+	public int updateGrade(Map<String, Object> map) {
+		return gradeMapper.updateGrade(map);
 	}
 
 }

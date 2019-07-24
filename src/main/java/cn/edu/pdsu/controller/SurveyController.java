@@ -80,6 +80,20 @@ public class SurveyController {
 		return ajaxResult;
 	}
 	
+	//获得问卷列表
+	@RequestMapping(value="user/my-wj-list",method=RequestMethod.GET)
+	public Object getMyWjList() {
+		AjaxResult ajaxResult=new AjaxResult();
+		try {
+			
+			
+		} catch (Exception e) {
+			ajaxResult.setSuccess(false);
+			e.printStackTrace();
+		}
+		return ajaxResult;
+	}
+	
 	//获得问卷详细
 	@RequestMapping(value="user/wj-detail",method=RequestMethod.GET)
 	public Object wjDetail(String id) {

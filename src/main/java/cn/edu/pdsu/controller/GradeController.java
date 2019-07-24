@@ -1,6 +1,11 @@
 package cn.edu.pdsu.controller;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -25,6 +30,64 @@ public class GradeController {
 			List<Grade> grades = gradeService.getAllGrade();
 			ajaxResult.setData(grades);
 			ajaxResult.setSuccess(true);
+		} catch (Exception e) {
+			ajaxResult.setSuccess(false);
+			e.printStackTrace();
+		}
+		return ajaxResult;
+	}
+	
+	//新增年级
+	@RequestMapping(value="/grade",method=RequestMethod.POST)
+	public Object addMajor(String name) {
+		AjaxResult ajaxResult=new AjaxResult();
+		try {
+			String id=UUID.randomUUID().toString();
+			String create_time=new SimpleDateFormat("yyyy-MM-dd hh:mm:ss").format(new Date());
+			Map<String, Object> map=new HashMap<String, Object>();
+			map.put("name", name);
+			map.put("id", id);
+			map.put("create_time", create_time);
+			int i= gradeService.addGrade(map);
+			if(i==1) {
+				ajaxResult.setSuccess(true);
+			}
+		} catch (Exception e) {
+			ajaxResult.setSuccess(false);
+			e.printStackTrace();
+		}
+		return ajaxResult;
+	}
+	
+	//删除年级
+	@RequestMapping(value="/grade",method=RequestMethod.DELETE)
+	public Object delMajor(String id) {
+		AjaxResult ajaxResult=new AjaxResult();
+		try {
+			int i= gradeService.delGrade(id);
+			if(i==1) {
+				ajaxResult.setSuccess(true);
+			}
+		} catch (Exception e) {
+			ajaxResult.setSuccess(false);
+			e.printStackTrace();
+		}
+		return ajaxResult;
+	}
+	
+	//更新年级
+	@RequestMapping(value="/grade",method=RequestMethod.PUT)
+	public Object updateMajor(String id,String name) {
+		AjaxResult ajaxResult=new AjaxResult();
+		try {
+			Map<String, Object> map=new HashMap<>();
+			map.put("id", id);
+			map.put("name", name);
+			map.put("create_time", new SimpleDateFormat("yyyy-MM-dd hh:mm:ss").format(new Date()));
+			int i= gradeService.updateGrade(map);
+			if(i==1) {
+				ajaxResult.setSuccess(true);
+			}
 		} catch (Exception e) {
 			ajaxResult.setSuccess(false);
 			e.printStackTrace();

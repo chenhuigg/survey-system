@@ -3,26 +3,26 @@
 	<head>
 		<meta charset="UTF-8">
 		<meta name="viewport" content="width=device-width">
-		<title>专业管理</title>
+		<title>年级管理</title>
 		<link rel="stylesheet" href="bootstrap/css/bootstrap.min.css" />
 	</head>
 	<body style="padding: 10px;">
 		<top id="top"></top>
-		<span id="add-major" class="btn btn-success pull-right" style="margin-right: 50px;">新增专业</span>
-		<h3 class="text-center">专业管理</h3>
+		<span id="add-grade" class="btn btn-success pull-right" style="margin-right: 50px;">新增专业</span>
+		<h3 class="text-center">年级管理</h3>
 		<!--专业列表-->
 		<table id="table" class="table table-hover table-striped text-center">
 			<tr style="font-weight: bold;">
-				<td>专业ID</td>
-				<td>专业名称</td>
-				<td>专业操作</td>
+				<td>年级ID</td>
+				<td>年级名称</td>
+				<td>年级操作</td>
 			</tr>
-			<tr v-for="major in majors">
-				<td v-text="major.id"></td>
-				<td v-text="major.name"></td>
+			<tr v-for="grade in grades">
+				<td v-text="grade.id"></td>
+				<td v-text="grade.name"></td>
 				<td>
-					<div class="btn btn-warning" @click="up(major.id,major.name)">编辑</div>
-					<div class="btn btn-danger" @click="del(major.id)">删除</div>
+					<div class="btn btn-warning" @click="up(grade.id,grade.name)">编辑</div>
+					<div class="btn btn-danger" @click="del(grade.id)">删除</div>
 				</td>
 			</tr>
 			
@@ -33,19 +33,19 @@
 	<script src="node_modules/vue/dist/vue.min.js"></script>
 	<script type="text/javascript" src="js/nav.js" ></script>
 	<script>
-		//新增专业
-		$("#add-major").click(function(){
-			var name=prompt("输入专业名称");
+		//新增年级
+		$("#add-grade").click(function(){
+			var name=prompt("输入年级名称");
 			if(name==null||name==""){
 				return;
 			}
 			$.ajax({
-				url:"admin/major",
+				url:"admin/grade",
 				type:"post",
 				data:{"name":name},
 				success:function(data){
 					if(data.success){
-						window.location.href="major-manager.html";
+						window.location.href="grade-manager.html";
 					}else{
 						alert("增加专业失败");
 					}
@@ -56,19 +56,19 @@
 			el:"#table",
 			data(){
 				return{
-					majors
+					grades
 				}
 			},
 			methods:{
 				//删除专业
 				del(id){
 					$.ajax({
-						url:"admin/major",
+						url:"admin/grade",
 						type:"post",
 						data:{"id":id,"_method":"delete"},
 						success:function(data){
 							if(data.success){
-								window.location.href="major-manager.html";
+								window.location.href="grade-manager.html";
 							}else{
 								alert("删除失败");
 							}
@@ -83,12 +83,12 @@
 						return;
 					}
 					$.ajax({
-						url:"admin/major",
+						url:"admin/grade",
 						type:"post",
 						data:{"id":id,"name":name,"_method":"put"},
 						success:function(data){
 							if(data.success){
-								window.location.href="major-manager.html";
+								window.location.href="grade-manager.html";
 							}else{
 								alert("更新专业失败");
 							}
@@ -100,11 +100,11 @@
 			beforeCreate(){
 				//获得所有专业进行渲染
 				$.ajax({
-					url:"admin/major",
+					url:"admin/grade",
 					async:false,
 					success:function(data){
 						if(data.success){
-							majors=data.data;
+							grades=data.data;
 						}else{
 							alert("获取数据失败");
 						}
