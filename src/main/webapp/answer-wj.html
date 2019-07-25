@@ -22,9 +22,8 @@
 			<!--问题项-->
 			<div class="form-group" style="margin-bottom: 60px;" v-for="question in questions">
 				<span v-text="question.content">
-					1、在手机APP项目开发和设计过程中，能在教学案例的基础上，扩展和完善现有功能，具有良好的学习态度和一定的创新意识。分数范围（0--100）【填空题】
 				</span>
-				<textarea  name="answer" style="font-size: 16px;" class="form-control answer" placeholder="请输入你的答案"></textarea>
+				<textarea  name="numbers" style="font-size: 16px;" class="form-control answer" placeholder="请输入你的答案"></textarea>
 			</div>
 			
 			<div class="btn btn-success btn-lg center-block" v-on:click="submit">提交</div>
@@ -54,7 +53,19 @@
 						}
 					})
 					if(bol){
-						//alert("提交数据");
+						$.ajax({
+							url:"user/wj-detail",
+							type:"post",
+							data:$("#form").serialize()+"&"+id,
+							success:function(data){
+								if(data.success){
+									alert("提交成功");
+								}else{
+									alert("提交失败");
+								}
+							}
+						})
+						
 					}
 				}
 			},

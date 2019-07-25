@@ -8,6 +8,14 @@ public class Survey {
 	private String version;//版本号
 	private String create_time;//创建时间
 	
+	private String expires_time; //过期时间
+	
+	public String getExpires_time() {
+		return expires_time;
+	}
+	public void setExpires_time(String expires_time) {
+		this.expires_time = expires_time;
+	}
 	public String getCreate_time() {
 		return create_time;
 	}

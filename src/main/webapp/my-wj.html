@@ -11,23 +11,17 @@
 		
 		<!--问卷列表-->
 		<h3 class="h3 text-center">我的问卷</h3>
-		<table class="table text-center table-hover table-striped">
+		<table id="table" class="table text-center table-hover table-striped">
 			<tr style="font-weight: bold;">
 				<td>问卷名称</td>
 				<td>截止时间</td>
 				<td>问卷操作</td>
 			</tr>
-			<tr>
-				<td>游戏开发实训</td>
-				<td>2019-07-31</td>
-				<td><a href="answer-wj.html">参与调查</a></td>
+			<tr v-for="survey in surveys">
+				<td v-text="survey.name"></td>
+				<td v-text="survey.expires_time"></td>
+				<td><a :href="'answer-wj.html?id='+survey.id">参与调查</a></td>
 			</tr>
-			<tr>
-				<td>Android实训</td>
-				<td>2019-07-31</td>
-				<td><a href="answer-wj.html">参与调查</a></td>
-			</tr>
-			
 		</table>
 		
 	</body>
@@ -35,4 +29,29 @@
 	<script type="text/javascript" src="bootstrap/js/bootstrap.min.js" ></script>
 	<script src="node_modules/vue/dist/vue.min.js"></script>
 	<script type="text/javascript" src="js/nav.js" ></script>
+	<script type="text/javascript">
+		var table=new Vue({
+			el:"#table",
+			data(){
+				return{
+					surveys
+				}
+			},
+			beforeCreate(){
+				$.ajax({
+					url:"user/my-wj-list",
+					async:false,
+					success:function(data){
+						if(data.success){
+							surveys=data.data;
+						}else{
+							alert("数据获取失败");
+						}
+					}
+					
+				})
+			}
+		})
+		
+	</script>
 </html>

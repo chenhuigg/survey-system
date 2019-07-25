@@ -60,6 +60,7 @@ public class LoginController {
 				ajaxResult.setData("用户名或密码错误");
 			}
 		} catch (Exception e) {
+			ajaxResult.setSuccess(false);
 			e.printStackTrace();
 		}
 		return ajaxResult;

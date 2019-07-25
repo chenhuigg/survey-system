@@ -22,7 +22,5 @@ public class ProblemService {
 	public void saveProblem(Map<String, Object> map) {
 		problemMapper.saveProblem(map);
 	}
-	
-	
 
 }
