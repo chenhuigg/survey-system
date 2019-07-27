@@ -22,6 +22,24 @@ public class GradeController {
 	@Autowired
 	private GradeService gradeService;
 	
+	//专业和科目，获得它们所发布到的年级
+	@RequestMapping(value="/grade-major-survey",method=RequestMethod.GET)
+	public Object getWjByMajorIdAndGradeId(String major_id,String survey_id) {
+		AjaxResult ajaxResult=new AjaxResult();
+		try {
+			Map<String, Object> map=new HashMap<>();
+			map.put("survey_id", survey_id);
+			map.put("major_id", major_id);
+			List<Grade> grades= gradeService.getGradeBySurveyIdAndMajorId(map);
+			ajaxResult.setData(grades);
+			ajaxResult.setSuccess(true);
+		} catch (Exception e) {
+			ajaxResult.setSuccess(false);
+			e.printStackTrace();
+		}
+		return ajaxResult;
+	}
+	
 	//获取全部年级
 	@RequestMapping(value="/grade",method=RequestMethod.GET)
 	public Object getAllGrade() {

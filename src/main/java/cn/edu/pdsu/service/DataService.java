@@ -17,6 +17,10 @@ public class DataService {
 	public List<Data> getDataByMajorIdAndGradeId(Map<String, Object> map) {
 		return dataMapper.getDataByMajorIdAndGradeId(map);
 	}
+
+	public List<Data> getDataByMajorIdAndSurveyId(Map<String, Object> map) {
+		return dataMapper.getDataByMajorIdAndSurveyId(map);
+	}
 	
 
 }

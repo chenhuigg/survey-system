@@ -10,51 +10,47 @@
 		<top id="top"></top>
 		
 		<!--选项-->
-		<div class="container form-inline">
-			<select class="form-control">
-				<option>专业</option>
-				<option>计算机科学与技术</option>
-				<option>软件工程</option>
+		<form id="form" class="container form-inline">
+			<select class="form-control" name="major_id">
+				<option value="">专业</option>
+				<option v-for="major in majors" v-text="major.name" :value="major.id"></option>
 			</select>
-			
-			<select class="form-control">
-				<option>科目</option>
-				<option>Android实训</option>
-				<option>Android实训</option>
-				<option>Android实训</option>
-				<option>Android实训</option>
+			<select class="form-control" name="survey_id">
+				<option value="">科目</option>
+				<option v-for="grade in grades" v-text="grade.name" :value="grade.id">2016级</option>
 			</select>
-			<div class="btn btn-success">查询</div>
-		</div><br /><br />
-		<div class="form-inline row">
-			<div class="col-sm-5 text-center">
-				<label>未选择科目</label><br />
-				<select id="left" class="form-control" multiple="multiple" style="min-width: 180px;overflow-y: auto;">
-					<option>游戏开发实训游戏开发实训</option>
-					<option>Android实训</option>
-					<option>Android实训2</option>
-					<option>Android实训3</option>
-					<option>Android实训4</option>
-					<option>Android实训5</option>
+			<div class="btn btn-success" @click="search">查询</div>
+			<div class="col-sm-8 col-sm-offset-2 text-center">
+				<br />
+				<label>选择年级（同科目不同届）</label><br />
+				<select name="grades" id="left" class="form-control" multiple="multiple" style="min-width: 180px;overflow-y: auto;">
 				</select>
 			</div>
-			<div class="col-sm-2 text-center" style="padding-top: 30px;padding-bottom: 30px;">
+			<div style="line-height: 119px;">
+				<div @click="compare" class="btn btn-success">
+					比较
+				</div>
+			</div>
+		</form><br /><br />
+		<div id="table" class="row">
+			
+			<!-- <div class="col-sm-2 text-center" style="padding-top: 30px;padding-bottom: 30px;">
 				<div id="to-right" class="btn btn-default">&gt;</div><br /><br />
 				<div id="to-left" class="btn btn-default">&lt;</div>
 			</div>
 			<div class="col-sm-5 text-center">
-				<label>已选择科目</label><br />
+				<label>已选择问卷</label><br />
 				<select id="right" class="form-control" multiple="multiple" style="min-width: 180px;overflow-y: auto;">
-					<!--<option>游戏开发实训</option>
-					<option>Android实训</option>-->
 				</select>
-			</div>
-		</div><br /><br />
+			</div> -->
+		</div>
+		<br /><br />
 		
 		<div style="width:-webkit-max();margin:10px auto">
 		    <canvas id="myChart" ></canvas>
 		</div>
-		<div class="text-center text-danger">说明：该表为同科目不同届分数占比表，横轴代表分数段，纵轴代表占比</div>
+		<div class="text-center text-danger">说明：该表为同科目不同届分数占比表，横轴代表分数段，纵轴代表人数</div>
+		
 	</body>
 	<script type="text/javascript" src="js/jquery-1.11.0.min.js" ></script>
 	<script type="text/javascript" src="bootstrap/js/bootstrap.min.js" ></script>
@@ -62,45 +58,174 @@
 	<script src="node_modules/vue/dist/vue.min.js"></script>
 	<script type="text/javascript" src="js/nav.js" ></script>
 	<script>
-		var ctx = document.getElementById('myChart').getContext('2d');
-		var myChart = new Chart(ctx, {
-		    type: 'bar',
-		    data: {
-		        labels: ['0-10', '10-20', '20-30', '30-40', '40-50',"50-60","60-70","70-80","80-90","90-100"],
-		        datasets: [
-		       {
-		            label: '2016',
-		            data: [18, 19, 3, 5, 0, 3],
-		            borderColor:'blue',
-		            backgroundColor:'skyBlue',
-		            borderWidth: 1,
-		        },
-		       {
-		            label: '2017',
-		            data: [30, 51, 20, 24, 25, 16],
-		            borderColor:'red',
-		            backgroundColor:'pink',
-		            borderWidth: 1,
-		        },
-		        {
-		            label: '2018',
-		            data: [11, 34, 33, 20, 15, 14],
-		            borderColor:'red',
-		            backgroundColor:'black',
-		            borderWidth: 1,
-		        },
-		 
-			]
+		var survey_id=window.location.href.split("?")[1];
+		var labels=['0-10', '10-20', '20-30', '30-40', '40-50',"50-60","60-70","70-80","80-90","90-100"];
+		var mydata;
+		var myChart;
+		var form=new Vue({
+			el:"#form",
+			data(){
+				return{
+					majors
+				}
+				return{
+					grades
+				}
+			},
+			methods:{
+				compare(){
+					var mydata="";
+					$.ajax({
+						url:"admin/get-same-subject",
+						data:$("#form").serialize(),
+						success:function(result){
+							if(result.success){
+								myChart.destroy();
+								var mydata=`
+										{
+											labels: ['0-10', '10-20', '20-30', '30-40', '40-50','50-60','60-70','70-80','80-90','90-100'],
+											datasets:[`
+								for(var i in result.data){
+									mydata+=`
+										{
+								            label: '游戏开发实训',
+								            data: [0,0,0,0,0,0,0,0,0,0],
+								            borderColor:"#`+getRandomColor()+`",
+								            backgroundColor:"#`+getRandomColor()+`",
+								            borderWidth: 1
+								        },`
+								} 
+								mydata+=`]}`
+								mydata=eval(`(`+mydata+`)`)
+								var k=0;
+								for(var i in result.data){
+									mydata.datasets[k].label=result.data[i][0].name;
+									for(var j=0;j<result.data[i].length;j++){
+							        	mydata.datasets[k].data[result.data[i][j].num]=result.data[i][j].count;
+										//alert(mydata.datasets[i].data[0])
+							        }
+									k++;
+								 }
+								//JSON.parse(mydata);
+								//eval(`(`+mydata+`)`)
+								/* mydata={
+									labels: ['0-10', '10-20', '20-30', '30-40', '40-50',"50-60","60-70","70-80","80-90","90-100"],
+									datasets: [
+									       {
+									            label: '游戏开发实训',
+									            data: [18, 19, 3, 5, 0, 3],
+									            borderColor:'blue',
+									            backgroundColor:'skyBlue',
+									            borderWidth: 1
+									        }, {
+									            label: '游戏开发实训',
+									            data: [118, 19, 3, 5, 0, 3],
+									            borderColor:"#"+getRandomColor(),
+									            backgroundColor:"#"+getRandomColor(),
+									            borderWidth: 1
+									        },
+									]
+								}  */
+							myChart = new Chart(ctx, {
+								    type: 'bar',
+								    data: mydata
+								});
+							}else{
+								alert("数据查询失败");
+							}
+						}
+					})
+				},
+				//查询年级情况
+				search(){
+					$.ajax({
+						url:"admin/grade-major-survey",
+						data:$("#form").serialize(),
+						success:function(data){
+							if(data.success){
+								//如果没查询到数据
+								if(data.data.length==0){
+									alert("查询数据为空");
+									return;
+								}
+								var temp="";
+								for(var i=0;i<data.data.length;i++){
+									temp+=`<option value="`+data.data[i].id+`">`+data.data[i].name+`</option>`
+								}
+								$("#left").html(temp);
+							}else{
+								alert("班级查询失败");
+							}
+						}
+					})
+				}
+			},
+			beforeCreate(){
+				//获取所有专业
+				$.ajax({
+					url:"admin/major",
+					async: false,
+					success:function(data){
+						if(data.success){
+							majors=data.data;
+						}
+					}
+				})
+				//获取所有科目
+				$.ajax({
+					url:"admin/wj",
+					async:false,
+					success:function(data){
+						if(data.success){
+							grades=data.data;
+						}
+					}
+				})
+			}
+		})
+		//随机生成颜色
+		function getRandomColor( ) {
+		    var rand = Math.floor(Math.random( ) * 0xFFFFFF).toString(16);
+		    if(rand.length == 6){
+		        return rand;
+		    }else{
+		        return getRandomColor();
 		    }
+		}
+		
+	    /* data={
+			labels: ['0-10', '10-20', '20-30', '30-40', '40-50',"50-60","60-70","70-80","80-90","90-100"],
+			datasets: [
+			       {
+			            label: '游戏开发实训',
+			            data: [18, 19, 3, 5, 0, 3],
+			            borderColor:'blue',
+			            backgroundColor:'skyBlue',
+			            borderWidth: 1,
+			        }
+			]
+		}
+		new Chart(ctx, {
+		    type: 'bar',
+		    data: data
+		}); */
+	    
+	  	//绘表
+		var ctx = document.getElementById('myChart').getContext('2d');
+		myChart = new Chart(ctx, {
+		    type: 'bar',
+		    data: mydata
 		});
-		//右移
+		/* //右移
 		$("#to-right").click(function(){
+			
+			
 			$("#right").append($("#left :selected"));
 		})
 		//左移
 		$("#to-left").click(function(){
 			$("#left").append($("#right :selected"));
-		})
+		}) */
 		
 	</script>
 </html>

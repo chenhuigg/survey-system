@@ -24,9 +24,6 @@ public class DataController {
 	public Object sameGrade(String major_id,String grade_id,String[] surveys) {
 		AjaxResult ajaxResult=new AjaxResult();
 		try {
-			System.out.println(major_id);
-			System.out.println(grade_id);
-			System.out.println(Arrays.toString(surveys));
 			//获取数据---问卷名称、分数总数量、分数段的数量
 			if(surveys!=null) {
 				Map<String, Object> resultmap=new HashMap<>();
@@ -37,6 +34,32 @@ public class DataController {
 					map.put("survey_id",survey_id);
 					List<Data> datas=dataservice.getDataByMajorIdAndGradeId(map);
 					resultmap.put(survey_id, datas);
+				}
+				ajaxResult.setData(resultmap);
+				ajaxResult.setSuccess(true);
+			}
+		} catch (Exception e) {
+			ajaxResult.setSuccess(false);
+			e.printStackTrace();
+		}
+		return ajaxResult;
+	}
+	
+	//同科目不同届
+	@RequestMapping("/get-same-subject")
+	public Object sameSubject(String major_id,String survey_id,String[] grades) {
+		AjaxResult ajaxResult=new AjaxResult();
+		try {
+			//获取数据---问卷名称、分数总数量、分数段的数量
+			if(grades!=null) {
+				Map<String, Object> resultmap=new HashMap<>();
+				for (String grade_id : grades) {
+					Map<String, Object> map=new HashMap<String, Object>();
+					map.put("major_id", major_id);
+					map.put("grade_id", grade_id);
+					map.put("survey_id",survey_id);
+					List<Data> datas=dataservice.getDataByMajorIdAndSurveyId(map);
+					resultmap.put(grade_id, datas);
 				}
 				ajaxResult.setData(resultmap);
 				ajaxResult.setSuccess(true);

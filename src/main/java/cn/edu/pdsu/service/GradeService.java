@@ -31,4 +31,8 @@ public class GradeService {
 		return gradeMapper.updateGrade(map);
 	}
 
+	public List<Grade> getGradeBySurveyIdAndMajorId(Map<String, Object> map) {
+		return gradeMapper.getGradeBySurveyIdAndMajorId(map);
+	}
+
 }
