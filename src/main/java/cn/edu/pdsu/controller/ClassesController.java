@@ -1,6 +1,5 @@
 package cn.edu.pdsu.controller;
 
-import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -69,7 +68,7 @@ public class ClassesController {
 		AjaxResult ajaxResult=new AjaxResult();
 		try {
 			String id=UUID.randomUUID().toString();
-			String create_time=new SimpleDateFormat("yyyy-MM-dd hh:mm:ss").format(new Date());
+			String create_time=new Date().getTime()+"";
 			Map<String, Object>map=new HashMap<>();
 			map.put("id", id);
 			map.put("name", name);

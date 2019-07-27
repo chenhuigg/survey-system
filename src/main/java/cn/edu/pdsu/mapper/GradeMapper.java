@@ -34,7 +34,8 @@ public interface GradeMapper {
 			"ON t_classes.grade_id=t_grade.id " + 
 			"INNER JOIN t_classes_survey " + 
 			"ON t_classes_survey.classes_id=t_classes.id " + 
-			"WHERE t_classes_survey.survey_id=#{survey_id} AND t_classes.major_id=#{major_id} ")
+			"WHERE t_classes_survey.survey_id=#{survey_id} AND t_classes.major_id=#{major_id}" +
+			"GROUP BY t_grade.`name`")
 	public List<Grade> getGradeBySurveyIdAndMajorId(Map<String, Object> map);
 
 }

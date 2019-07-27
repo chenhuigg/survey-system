@@ -1,6 +1,5 @@
 package cn.edu.pdsu.controller;
 
-import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -75,7 +74,7 @@ public class SurveyController {
 			//增加问卷
 			String survey_id=UUID.randomUUID().toString();
 			survey.setId(survey_id);
-			survey.setCreate_time(new SimpleDateFormat("yyyy-MM-dd hh:mm:ss").format(new Date()));
+			survey.setCreate_time(new Date().getTime()+"");
 			surveyService.saveSurvey(survey);
 			//增加问题
 			Map<String, Object> map=new HashMap<String, Object>();

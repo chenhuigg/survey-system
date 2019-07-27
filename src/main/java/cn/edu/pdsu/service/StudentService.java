@@ -15,7 +15,5 @@ public class StudentService {
 	public Student userLogin(Student student) {
 		return studentMapper.getStudentByNoAndPassword(student);
 	}
-	
-	
 
 }

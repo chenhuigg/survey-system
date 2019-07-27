@@ -21,6 +21,10 @@ public class DataService {
 	public List<Data> getDataByMajorIdAndSurveyId(Map<String, Object> map) {
 		return dataMapper.getDataByMajorIdAndSurveyId(map);
 	}
+
+	public int getSumScore(String survey_id) {
+		return dataMapper.getSumScore(survey_id);
+	}
 	
 
 }

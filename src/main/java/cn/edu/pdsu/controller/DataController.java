@@ -1,6 +1,5 @@
 package cn.edu.pdsu.controller;
 
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -27,13 +26,21 @@ public class DataController {
 			//获取数据---问卷名称、分数总数量、分数段的数量
 			if(surveys!=null) {
 				Map<String, Object> resultmap=new HashMap<>();
+				int sum=0;
 				for (String survey_id : surveys) {
 					Map<String, Object> map=new HashMap<String, Object>();
 					map.put("major_id", major_id);
 					map.put("grade_id", grade_id);
 					map.put("survey_id",survey_id);
+					//查找当前问卷数据
 					List<Data> datas=dataservice.getDataByMajorIdAndGradeId(map);
+					//获得问卷对应的问题数（总分，每道100分）
+					int tempSum= dataservice.getSumScore(survey_id);
+					if(tempSum>sum) {
+						sum=tempSum;
+					}
 					resultmap.put(survey_id, datas);
+					resultmap.put("sum", sum);
 				}
 				ajaxResult.setData(resultmap);
 				ajaxResult.setSuccess(true);
@@ -61,6 +68,8 @@ public class DataController {
 					List<Data> datas=dataservice.getDataByMajorIdAndSurveyId(map);
 					resultmap.put(grade_id, datas);
 				}
+				int sum= dataservice.getSumScore(survey_id);
+				resultmap.put("sum", sum);
 				ajaxResult.setData(resultmap);
 				ajaxResult.setSuccess(true);
 			}

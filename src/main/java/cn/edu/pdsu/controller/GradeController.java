@@ -1,6 +1,5 @@
 package cn.edu.pdsu.controller;
 
-import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -61,7 +60,7 @@ public class GradeController {
 		AjaxResult ajaxResult=new AjaxResult();
 		try {
 			String id=UUID.randomUUID().toString();
-			String create_time=new SimpleDateFormat("yyyy-MM-dd hh:mm:ss").format(new Date());
+			String create_time=new Date().getTime()+"";
 			Map<String, Object> map=new HashMap<String, Object>();
 			map.put("name", name);
 			map.put("id", id);
@@ -101,7 +100,7 @@ public class GradeController {
 			Map<String, Object> map=new HashMap<>();
 			map.put("id", id);
 			map.put("name", name);
-			map.put("create_time", new SimpleDateFormat("yyyy-MM-dd hh:mm:ss").format(new Date()));
+			map.put("create_time", new Date().getTime()+"");
 			int i= gradeService.updateGrade(map);
 			if(i==1) {
 				ajaxResult.setSuccess(true);

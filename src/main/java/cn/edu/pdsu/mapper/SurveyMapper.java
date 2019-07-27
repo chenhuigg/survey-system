@@ -38,7 +38,8 @@ public interface SurveyMapper {
 			"ON t_survey.id=t_classes_survey.survey_id " + 
 			"INNER JOIN t_classes " + 
 			"ON t_classes.id=t_classes_survey.classes_id " + 
-			"WHERE grade_id=#{grade_id} AND major_id=#{major_id}")
+			"WHERE grade_id=#{grade_id} AND major_id=#{major_id} "+
+	 		"GROUP BY t_survey.`name`")
 	public List<Survey> getSurveyByGradeIdAndMajorId(Map<String, Object>map);
 	
 

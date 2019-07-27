@@ -34,5 +34,8 @@ public interface DataMapper {
 			") answer " + 
 			"GROUP BY num " )
 	public List<Data> getDataByMajorIdAndSurveyId(Map<String, Object> map);
+	
+	@Select("SELECT sum(score) FROM t_problem WHERE survey_id=#{survey_id}")
+	public int getSumScore(String survey_id);
 
 }

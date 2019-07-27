@@ -18,14 +18,80 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import cn.edu.pdsu.pojo.Admin;
 import cn.edu.pdsu.pojo.AjaxResult;
+import cn.edu.pdsu.pojo.Classes;
 import cn.edu.pdsu.pojo.Student;
+import cn.edu.pdsu.service.AdminService;
 import cn.edu.pdsu.service.StudentService;
 
 @Controller
 public class LoginController {
 	@Autowired
 	private StudentService studentService;
+	@Autowired
+	private AdminService adminService;
+	//管理员登录
+	@ResponseBody
+	@RequestMapping(value="/a-login",method=RequestMethod.POST)
+	public Object adminLogin(Admin admin,String code,HttpSession session) {
+		AjaxResult ajaxResult=new AjaxResult();
+		//判断验证码是否正确，正确，将验证码重置
+		String sessionCode =  (String) session.getAttribute("Code");
+		//验证码不正确
+		if(sessionCode==null||code==null||
+				sessionCode==""||code==""||!sessionCode.equals(code)) {
+			ajaxResult.setSuccess(false);
+			ajaxResult.setData("验证码错误");
+			return ajaxResult;
+		}
+		session.setAttribute("Code",null);
+		try {
+			//查询用户信息，通过用户名、密码
+			admin=adminService.userLogin(admin);
+			if(admin!=null) {
+				//将用户信息存入Session
+				session.setAttribute("admin", admin);
+				//生成学生信息，防止出错，存入Session
+				Student student=new Student();
+				student.setId("admin");
+				student.setName("管理员");
+				Classes classes=new Classes();
+				classes.setId("admin");
+				student.setClasses(classes);
+				session.setAttribute("student", student);
+				ajaxResult.setSuccess(true);
+			}else {
+				ajaxResult.setData("用户名或密码错误");
+			}
+		} catch (Exception e) {
+			ajaxResult.setSuccess(false);
+			e.printStackTrace();
+		}
+		return ajaxResult;
+	}
+	
+	//获得用户登录状态
+	@ResponseBody
+	@RequestMapping("/islogin")
+	public Object isLogin(HttpSession session) {
+		AjaxResult ajaxResult=new AjaxResult();
+		try {
+			Student student=(Student) session.getAttribute("student");
+			Admin admin=(Admin) session.getAttribute("admin");
+			if(student!=null) {
+				ajaxResult.setSuccess(true);
+			}
+			if(admin!=null) {
+				ajaxResult.setData(0);
+				ajaxResult.setSuccess(true);
+			}
+		} catch (Exception e) {
+			ajaxResult.setSuccess(false);
+			e.printStackTrace();
+		}
+		return ajaxResult;
+	}
 	
 	//用户退出
 	@RequestMapping("/logout")
