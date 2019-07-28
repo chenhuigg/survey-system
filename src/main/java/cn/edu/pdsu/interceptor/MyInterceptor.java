@@ -16,7 +16,6 @@ public class MyInterceptor implements HandlerInterceptor{
 			throws Exception {
 		//ªÒ»°¡¥Ω”
 		String pathInfo = request.getPathInfo();
-		System.out.println(pathInfo);
 		if(pathInfo.contains("/user/")) {
 			Student student=(Student) request.getSession().getAttribute("student");
 			if(student==null) {

@@ -51,6 +51,11 @@
 							bol=false;
 							return false;
 						}
+						if($(this).val()>100){
+							alert("分数最大为100分");
+							bol=false;
+							return false;
+						}
 					})
 					if(bol){
 						$.ajax({
@@ -62,7 +67,7 @@
 									alert("提交成功");
 									window.location.href="my-wj.html";
 								}else{
-									alert("提交失败");
+									alert("无权提交");
 								}
 							}
 						})

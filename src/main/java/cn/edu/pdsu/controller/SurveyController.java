@@ -145,10 +145,15 @@ public class SurveyController {
 		AjaxResult ajaxResult=new AjaxResult();
 		try {
 			Student student=(Student) session.getAttribute("student");
-			if(student!=null) {
+			if(student!=null&&!student.getId().equals("admin")) {
 				HashMap<String, Object> map=new HashMap<>();
 				int score=0;
 				for(int i=0;i<numbers.length;i++) {
+					if(numbers[i]>100) {
+						//分数不能大于100
+						ajaxResult.setSuccess(false);
+						return ajaxResult;
+					}
 					score+=numbers[i];
 				}
 				map.put("score", score);
