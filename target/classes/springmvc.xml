@@ -14,6 +14,10 @@
 		
 		<!-- 配置包扫描 -->
 		<context:component-scan base-package="cn.edu.pdsu.controller"></context:component-scan>
+		<context:component-scan base-package="cn.edu.pdsu.aop"></context:component-scan>
+		
+		<!-- 开启AOP -->
+		<aop:aspectj-autoproxy />
 		
 		<!-- 配置视图解析器 -->
 		<!-- <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">

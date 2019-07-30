@@ -27,7 +27,7 @@
 		<servlet-name>springDispatcherServlet</servlet-name>
 		<url-pattern>/*</url-pattern>
 	</servlet-mapping>
-
+	
 	<!-- 配置Spring的配置文件 -->
 	<context-param>
 		<param-name>contextConfigLocation</param-name>
@@ -36,6 +36,11 @@
 	<!-- 配置Spring的监听 -->
 	<listener>
 		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+	</listener>
+	
+	<!-- 监听Http请求事件 -->
+	<listener>
+		<listener-class>org.springframework.web.context.request.RequestContextListener</listener-class>
 	</listener>
 	
 	<filter>

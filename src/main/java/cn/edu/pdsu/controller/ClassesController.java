@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import cn.edu.pdsu.aop.ConsumeToken;
+import cn.edu.pdsu.aop.ProduceToken;
 import cn.edu.pdsu.pojo.AjaxResult;
 import cn.edu.pdsu.pojo.Classes;
 import cn.edu.pdsu.service.ClassesService;
@@ -63,6 +65,7 @@ public class ClassesController {
 	}
 	
 	//新增班级
+	@ConsumeToken
 	@RequestMapping(value="/classes",method=RequestMethod.POST)
 	public Object addClasses(String major_id,String grade_id,String name) {
 		AjaxResult ajaxResult=new AjaxResult();
@@ -87,6 +90,7 @@ public class ClassesController {
 	}
 	
 	//查询全部班级信息
+	@ProduceToken
 	@RequestMapping(value="/classes",method=RequestMethod.GET)
 	public Object getClasseses() {
 		AjaxResult ajaxResult=new AjaxResult();
