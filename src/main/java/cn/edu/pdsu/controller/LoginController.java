@@ -65,14 +65,14 @@ public class LoginController {
 	@ResponseBody
 	@RequestMapping("/islogin")
 	public Object isLogin(HttpSession session) {
-			Student student=(Student) session.getAttribute("student");
-			Admin admin=(Admin) session.getAttribute("admin");
-			if(student!=null) {
-				AjaxResult.createBySuccess();
-			}
-			if(admin!=null) {
-				return AjaxResult.createBySuccessData(0);
-			}
+		Student student=(Student) session.getAttribute("student");
+		Admin admin=(Admin) session.getAttribute("admin");
+		if(student!=null) {
+			return AjaxResult.createBySuccessData(1);
+		}
+		if(admin!=null) {
+			return AjaxResult.createBySuccessData(0);
+		}
 		return AjaxResult.createByError();
 	}
 	

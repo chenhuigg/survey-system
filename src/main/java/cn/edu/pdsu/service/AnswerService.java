@@ -13,8 +13,13 @@ public class AnswerService {
 	private AnswerMapper answerMapper;
 	
 	public int saveAnswer(HashMap<String, Object> map) {
+		//保存问卷
 		return answerMapper.saveAnswer(map);
 	}
 	
+	public int saveAnswerList(HashMap<String, Object> map) {
+		//保存分数信息
+		return answerMapper.saveAnswerList(map);
+	}
 
 }

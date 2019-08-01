@@ -100,6 +100,8 @@ public class SurveyController {
 	public Object submitWJ(Integer[] numbers,@RequestParam("id")String survey_id,HttpSession session) {
 		Student student=(Student) session.getAttribute("student");
 		if(student!=null&&!student.getId().equals("admin")) {
+			//获得问题id
+			List<Problem> problems = problemService.getProblemBySurveyId(survey_id);
 			HashMap<String, Object> map=new HashMap<>();
 			int score=0;
 			for(int i=0;i<numbers.length;i++) {
@@ -107,12 +109,15 @@ public class SurveyController {
 					//分数不能大于100
 					return AjaxResult.createByErrorMsg("分数最大为100分");
 				}
+				problems.get(i).setScore(numbers[i]);
 				score+=numbers[i];
 			}
 			map.put("score", score);
 			map.put("survey_id", survey_id);
 			map.put("student_id", student.getId());
+			map.put("problems", problems);
 			int i= answerService.saveAnswer(map);
+			answerService.saveAnswerList(map);
 			if(i==1) {
 				return AjaxResult.createBySuccessMsg("提交成功");
 			}
