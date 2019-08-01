@@ -56,10 +56,10 @@
 						data:{"id":id,"_method":"delete"},
 						success:function(data){
 							if(data.success){
-								alert("删除数据成功");
+								alert(data.msg);
 								window.location.href="list-wj.html";
 							}else{
-								alert("删除失败");
+								alert(data.msg);
 							}
 						}
 					})
@@ -74,8 +74,6 @@
 					success:function(data){
 						if(data.success){
 							surveys=data.data;
-						}else{
-							alert("请求数据失败");
 						}
 					}
 				})

@@ -24,92 +24,58 @@ public class GradeController {
 	//专业和科目，获得它们所发布到的年级
 	@RequestMapping(value="/grade-major-survey",method=RequestMethod.GET)
 	public Object getWjByMajorIdAndGradeId(String major_id,String survey_id) {
-		AjaxResult ajaxResult=new AjaxResult();
-		try {
-			Map<String, Object> map=new HashMap<>();
-			map.put("survey_id", survey_id);
-			map.put("major_id", major_id);
-			List<Grade> grades= gradeService.getGradeBySurveyIdAndMajorId(map);
-			ajaxResult.setData(grades);
-			ajaxResult.setSuccess(true);
-		} catch (Exception e) {
-			ajaxResult.setSuccess(false);
-			e.printStackTrace();
-		}
-		return ajaxResult;
+		Map<String, Object> map=new HashMap<>();
+		map.put("survey_id", survey_id);
+		map.put("major_id", major_id);
+		List<Grade> grades= gradeService.getGradeBySurveyIdAndMajorId(map);
+		return AjaxResult.createBySuccessData(grades);
 	}
 	
 	//获取全部年级
 	@RequestMapping(value="/grade",method=RequestMethod.GET)
 	public Object getAllGrade() {
-		AjaxResult ajaxResult=new AjaxResult();
-		try {
-			List<Grade> grades = gradeService.getAllGrade();
-			ajaxResult.setData(grades);
-			ajaxResult.setSuccess(true);
-		} catch (Exception e) {
-			ajaxResult.setSuccess(false);
-			e.printStackTrace();
-		}
-		return ajaxResult;
+		List<Grade> grades = gradeService.getAllGrade();
+		return AjaxResult.createBySuccessData(grades);
 	}
 	
 	//新增年级
 	@RequestMapping(value="/grade",method=RequestMethod.POST)
 	public Object addMajor(String name) {
-		AjaxResult ajaxResult=new AjaxResult();
-		try {
-			String id=UUID.randomUUID().toString();
-			String create_time=new Date().getTime()+"";
-			Map<String, Object> map=new HashMap<String, Object>();
-			map.put("name", name);
-			map.put("id", id);
-			map.put("create_time", create_time);
-			int i= gradeService.addGrade(map);
-			if(i==1) {
-				ajaxResult.setSuccess(true);
-			}
-		} catch (Exception e) {
-			ajaxResult.setSuccess(false);
-			e.printStackTrace();
+		String id=UUID.randomUUID().toString();
+		String create_time=new Date().getTime()+"";
+		Map<String, Object> map=new HashMap<String, Object>();
+		map.put("name", name);
+		map.put("id", id);
+		map.put("create_time", create_time);
+		int i= gradeService.addGrade(map);
+		if(i==1) {
+			return AjaxResult.createBySuccess();
 		}
-		return ajaxResult;
+		return AjaxResult.createByErrorMsg("增加年级失败");
 	}
 	
 	//删除年级
 	@RequestMapping(value="/grade",method=RequestMethod.DELETE)
 	public Object delMajor(String id) {
-		AjaxResult ajaxResult=new AjaxResult();
-		try {
-			int i= gradeService.delGrade(id);
-			if(i==1) {
-				ajaxResult.setSuccess(true);
-			}
-		} catch (Exception e) {
-			ajaxResult.setSuccess(false);
-			e.printStackTrace();
+		int i= gradeService.delGrade(id);
+		if(i==1) {
+			return AjaxResult.createBySuccess();
 		}
-		return ajaxResult;
+		return AjaxResult.createByErrorMsg("删除失败");
 	}
 	
 	//更新年级
 	@RequestMapping(value="/grade",method=RequestMethod.PUT)
 	public Object updateMajor(String id,String name) {
-		AjaxResult ajaxResult=new AjaxResult();
-		try {
-			Map<String, Object> map=new HashMap<>();
-			map.put("id", id);
-			map.put("name", name);
-			map.put("create_time", new Date().getTime()+"");
-			int i= gradeService.updateGrade(map);
-			if(i==1) {
-				ajaxResult.setSuccess(true);
-			}
-		} catch (Exception e) {
-			ajaxResult.setSuccess(false);
-			e.printStackTrace();
+		Map<String, Object> map=new HashMap<>();
+		map.put("id", id);
+		map.put("name", name);
+		map.put("create_time", new Date().getTime()+"");
+		int i= gradeService.updateGrade(map);
+		if(i==1) {
+			return AjaxResult.createBySuccess();
 		}
-		return ajaxResult;
+		return AjaxResult.createByErrorMsg("更新年级失败");
 	}
 
 }

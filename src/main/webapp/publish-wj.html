@@ -50,7 +50,7 @@
 	    				temp+=`<div class="btn btn-danger" onclick='del("`+id+`")'>删除</div>`;
 	    				$("#"+id).html(temp);
 	    			}else{
-	    				alert("发布失败");
+	    				alert(data.msg);
 	    			}
 	    		}
 	    	})
@@ -67,7 +67,7 @@
 	    				temp+=`<div class="btn btn-primary" onclick='publish("`+id+`")'>发布</div>`;
 	    				$("#"+id).html(temp);
 					}else{
-						alert("删除失败");
+						alert(data.msg);
 					}
 				}
 			})

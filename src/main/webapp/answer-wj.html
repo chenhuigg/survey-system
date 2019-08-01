@@ -64,10 +64,10 @@
 							data:$("#form").serialize()+"&"+id,
 							success:function(data){
 								if(data.success){
-									alert("提交成功");
+									alert(data.msg);
 									window.location.href="my-wj.html";
 								}else{
-									alert("无权提交");
+									alert(data.msg);
 								}
 							}
 						})

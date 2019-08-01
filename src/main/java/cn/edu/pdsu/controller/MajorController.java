@@ -24,74 +24,48 @@ public class MajorController {
 	//获得所有专业
 	@RequestMapping(value="/major",method=RequestMethod.GET)
 	public Object getMajors() {
-		AjaxResult ajaxResult=new AjaxResult();
-		try {
-			List<Major> majors = majorService.getAllMajor();
-			ajaxResult.setData(majors);
-			ajaxResult.setSuccess(true);
-		} catch (Exception e) {
-			ajaxResult.setSuccess(false);
-			e.printStackTrace();
-		}
-		return ajaxResult;
+		List<Major> majors = majorService.getAllMajor();
+		return AjaxResult.createBySuccessData(majors);
 	}
 	
 	//新增专业
 	@RequestMapping(value="/major",method=RequestMethod.POST)
 	public Object addMajor(String name) {
-		AjaxResult ajaxResult=new AjaxResult();
-		try {
-			String id=UUID.randomUUID().toString();
-			String create_time=new Date().getTime()+"";
-			Map<String, Object> map=new HashMap<String, Object>();
-			map.put("name", name);
-			map.put("id", id);
-			map.put("create_time", create_time);
-			int i= majorService.addMajor(map);
-			if(i==1) {
-				ajaxResult.setSuccess(true);
-			}
-		} catch (Exception e) {
-			ajaxResult.setSuccess(false);
-			e.printStackTrace();
+		String id=UUID.randomUUID().toString();
+		String create_time=new Date().getTime()+"";
+		Map<String, Object> map=new HashMap<String, Object>();
+		map.put("name", name);
+		map.put("id", id);
+		map.put("create_time", create_time);
+		int i= majorService.addMajor(map);
+		if(i==1) {
+			return AjaxResult.createBySuccess();
 		}
-		return ajaxResult;
+		return AjaxResult.createByErrorMsg("增加专业失败");
 	}
 	
 	//删除专业
 	@RequestMapping(value="/major",method=RequestMethod.DELETE)
 	public Object delMajor(String id) {
-		AjaxResult ajaxResult=new AjaxResult();
-		try {
-			int i= majorService.delMajor(id);
-			if(i==1) {
-				ajaxResult.setSuccess(true);
-			}
-		} catch (Exception e) {
-			ajaxResult.setSuccess(false);
-			e.printStackTrace();
+		int i= majorService.delMajor(id);
+		if(i==1) {
+			return AjaxResult.createBySuccess();
 		}
-		return ajaxResult;
+		return AjaxResult.createByErrorMsg("删除失败");
 	}
 	
 	//更新专业
 	@RequestMapping(value="/major",method=RequestMethod.PUT)
 	public Object updateMajor(String id,String name) {
-		AjaxResult ajaxResult=new AjaxResult();
-		try {
-			Map<String, Object> map=new HashMap<>();
-			map.put("id", id);
-			map.put("name", name);
-			map.put("create_time",new Date().getTime()+"");
-			int i= majorService.updateMajor(map);
-			if(i==1) {
-				ajaxResult.setSuccess(true);
-			}
-		} catch (Exception e) {
-			ajaxResult.setSuccess(false);
-			e.printStackTrace();
+		Map<String, Object> map=new HashMap<>();
+		map.put("id", id);
+		map.put("name", name);
+		map.put("create_time",new Date().getTime()+"");
+		int i= majorService.updateMajor(map);
+		if(i==1) {
+			return AjaxResult.createBySuccess();
 		}
-		return ajaxResult;
+		return AjaxResult.createByErrorMsg("更新专业失败");
 	}
 
 }

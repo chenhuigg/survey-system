@@ -127,7 +127,7 @@
 						data:$("#form").serialize(),
 						success:function(data){
 							if(data.success){
-								alert("问卷提交成功");
+								alert(data.msg);
 								window.location.href="list-wj.html";
 							}else{
 								alert("问卷提交失败");

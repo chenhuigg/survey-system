@@ -47,7 +47,7 @@
 					if(data.success){
 						window.location.href="grade-manager.html";
 					}else{
-						alert("增加专业失败");
+						alert(data.msg);
 					}
 				}
 			})
@@ -60,7 +60,7 @@
 				}
 			},
 			methods:{
-				//删除专业
+				//删除年级
 				del(id){
 					$.ajax({
 						url:"admin/grade",
@@ -70,15 +70,15 @@
 							if(data.success){
 								window.location.href="grade-manager.html";
 							}else{
-								alert("删除失败");
+								alert(data.msg);
 							}
 						}
 						
 					})
 				},
-				//更新专业
+				//更新年级
 				up(id,name){
-					var name=prompt("输入新的专业名称",name);
+					var name=prompt("输入新的年级名称",name);
 					if(name==null||name==""){
 						return;
 					}
@@ -90,7 +90,7 @@
 							if(data.success){
 								window.location.href="grade-manager.html";
 							}else{
-								alert("更新专业失败");
+								alert(data.msg);
 							}
 						}
 					})
@@ -98,15 +98,13 @@
 				
 			},
 			beforeCreate(){
-				//获得所有专业进行渲染
+				//获得所有年级进行渲染
 				$.ajax({
 					url:"admin/grade",
 					async:false,
 					success:function(data){
 						if(data.success){
 							grades=data.data;
-						}else{
-							alert("获取数据失败");
 						}
 					}
 				});

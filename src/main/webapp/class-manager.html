@@ -83,7 +83,7 @@
 							if(data.success){
 								window.location.href="class-manager.html";
 							}else{
-								alert("新增班级失败");
+								alert(data.msg);
 							}
 						}
 					})
@@ -131,7 +131,7 @@
 							if(data.success){
 								window.location.href="class-manager.html";
 							}else{
-								alert("删除失败");
+								alert(data.msg);
 							}
 						}
 					}) 
@@ -168,7 +168,7 @@
 								if(data.success){
 									window.location.href="class-manager.html";
 								}else{
-									alert("修改失败");
+									alert(data.msg);
 								}
 							}
 						})
@@ -185,8 +185,6 @@
 					success(data){
 						if(data.success){
 							classeses=data.data;
-						}else{
-							alert("数据查询失败");
 						}
 					}
 				})
