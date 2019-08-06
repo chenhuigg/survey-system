@@ -36,6 +36,7 @@
 	<script type="text/javascript" src="bootstrap/js/bootstrap.min.js" ></script>
 	<script src="node_modules/vue/dist/vue.min.js"></script>
 	<script type="text/javascript" src="js/nav.js" ></script>
+	<script type="text/javascript" src="js/layer/layer.js" ></script>
 	<script>
 		var survey_id=window.location.href.split("?")[1];
 		//发布问卷
@@ -57,20 +58,28 @@
 	    }
 		//删除问卷
 		var del=function(id){
-			$.ajax({
-				url:"admin/classes-wj",
-				type:"post",
-				data:"classes_id="+id+"&"+survey_id+"&_method=delete",
-				success:function(data){
-					if(data.success){
-						var temp="";
-	    				temp+=`<div class="btn btn-primary" onclick='publish("`+id+`")'>发布</div>`;
-	    				$("#"+id).html(temp);
-					}else{
-						alert(data.msg);
+			layer.confirm("删除后统计界面将不会记录该班级信息",  {icon: 7, title:'警告',shift:6}, function(cindex){
+				delwj(id);
+				layer.close(cindex);
+			}, function(cindex){
+				layer.close(cindex);
+			});
+			function delwj(id){
+				$.ajax({
+					url:"admin/classes-wj",
+					type:"post",
+					data:"classes_id="+id+"&"+survey_id+"&_method=delete",
+					success:function(data){
+						if(data.success){
+							var temp="";
+		    				temp+=`<div class="btn btn-primary" onclick='publish("`+id+`")'>发布</div>`;
+		    				$("#"+id).html(temp);
+						}else{
+							alert(data.msg);
+						}
 					}
-				}
-			})
+				})
+			}
 		}
 		var form=new Vue({
 			el:"#form",
@@ -128,6 +137,8 @@
 					success:function(data){
 						if(data.success){
 							majors=data.data;
+						}else{
+							alert("获取数据失败，请检查登录状态");
 						}
 					}
 				})

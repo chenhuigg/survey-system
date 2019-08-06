@@ -32,6 +32,7 @@
 	<script type="text/javascript" src="bootstrap/js/bootstrap.min.js" ></script>
 	<script src="node_modules/vue/dist/vue.min.js"></script>
 	<script type="text/javascript" src="js/nav.js" ></script>
+	<script type="text/javascript" src="js/layer/layer.js" ></script>
 	<script>
 		//新增专业
 		$("#add-major").click(function(){
@@ -62,19 +63,26 @@
 			methods:{
 				//删除专业
 				del(id){
-					$.ajax({
-						url:"admin/major",
-						type:"post",
-						data:{"id":id,"_method":"delete"},
-						success:function(data){
-							if(data.success){
-								window.location.href="major-manager.html";
-							}else{
-								alert(data.msg);
+					layer.confirm("确定删除专业信息吗",  {icon: 3, title:'提示'}, function(cindex){
+						delmajor(id);
+						layer.close(cindex);
+					}, function(cindex){
+						layer.close(cindex);
+					});
+					function delmajor(id){
+						$.ajax({
+							url:"admin/major",
+							type:"post",
+							data:{"id":id,"_method":"delete"},
+							success:function(data){
+								if(data.success){
+									window.location.href="major-manager.html";
+								}else{
+									alert(data.msg);
+								}
 							}
-						}
-						
-					})
+						})
+					}
 				},
 				//更新专业
 				up(id,name){
@@ -105,6 +113,8 @@
 					success:function(data){
 						if(data.success){
 							majors=data.data;
+						}else{
+							alert("获取数据失败，请检查登录状态");
 						}
 					}
 				});

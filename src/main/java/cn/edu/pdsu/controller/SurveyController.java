@@ -14,6 +14,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import cn.edu.pdsu.aop.ConsumeToken;
+import cn.edu.pdsu.aop.ProduceToken;
 import cn.edu.pdsu.pojo.AjaxResult;
 import cn.edu.pdsu.pojo.Problem;
 import cn.edu.pdsu.pojo.Student;
@@ -89,6 +91,7 @@ public class SurveyController {
 	}
 	
 	//获得问卷详细
+	@ProduceToken
 	@RequestMapping(value="user/wj-detail",method=RequestMethod.GET)
 	public Object wjDetail(String id) {
 		List<Problem> problems = problemService.getProblemBySurveyId(id);
@@ -96,6 +99,7 @@ public class SurveyController {
 	}
 	
 	//提交问卷
+	@ConsumeToken
 	@RequestMapping(value="user/wj-detail",method=RequestMethod.POST)
 	public Object submitWJ(Integer[] numbers,@RequestParam("id")String survey_id,HttpSession session) {
 		Student student=(Student) session.getAttribute("student");
@@ -123,6 +127,14 @@ public class SurveyController {
 			}
 		}
 		return AjaxResult.createByErrorMsg("问卷提交失败");
+	}
+	
+	//获得问卷标题
+	@RequestMapping(value="/user/wj-title",method=RequestMethod.GET)
+	public Object getWjTitle(String id) {
+		//根据id查询问卷名
+		String surveyName= surveyService.getTitleById(id);
+		return AjaxResult.createBySuccessData(surveyName);
 	}
 
 }

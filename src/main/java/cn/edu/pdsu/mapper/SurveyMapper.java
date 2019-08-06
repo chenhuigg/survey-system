@@ -41,6 +41,9 @@ public interface SurveyMapper {
 			"WHERE grade_id=#{grade_id} AND major_id=#{major_id} "+
 	 		"GROUP BY t_survey.`name`")
 	public List<Survey> getSurveyByGradeIdAndMajorId(Map<String, Object>map);
+
+	@Select("SELECT name FROM t_survey WHERE id=#{id}")
+	public String getTitleById(String id);
 	
 
 }

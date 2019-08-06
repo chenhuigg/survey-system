@@ -9,15 +9,15 @@
 	<body style="padding: 10px;">
 		<top id="top"></top>
 		
-		<!--问卷名称-->
-		<div class="container">
-			<div class="row">
-				<div class="col-xs-12" style="font-size: 20px;color: gray;">游戏开发实训</div>
-			</div>
-		</div><br />
 		
 		<!--问题-->
 		<form id="form" class="form center-block" style="font-size: 16px;color: gray;">
+			<!--问卷名称-->
+			<div class="container">
+				<div class="row">
+					<div class="col-xs-12" style="font-size: 20px;color: gray;" v-text="surveyName"></div>
+				</div>
+			</div><br />
 			
 			<!--问题项-->
 			<div class="form-group" style="margin-bottom: 60px;" v-for="question in questions">
@@ -40,7 +40,14 @@
 		var questions;
 		var form=new Vue({
 			el:"#form",
-			data:questions,
+			data(){
+				return{
+					questions
+				}
+				return{
+					surveyName
+				}
+			},
 			methods:{
 				//提交问卷
 				submit(){
@@ -85,7 +92,18 @@
 						if(data.success){
 							questions=data.data;
 						}else{
-							alert("获取数据失败");
+							alert("获取数据失败，请检查登录状态")
+						}
+					}
+				})
+				//获得问卷标题
+				$.ajax({
+					url:"user/wj-title",
+					async:false,
+					data:id,
+					success:function(data){
+						if(data.success){
+							surveyName=data.data;
 						}
 					}
 				})

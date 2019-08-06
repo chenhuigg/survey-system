@@ -123,18 +123,26 @@
 			methods:{
 				//删除班级信息
 				del(id){
-					$.ajax({
-						url:"admin/classes",
-						type:"post",
-						data:{"id":id,"_method":"delete"},
-						success:function(data){
-							if(data.success){
-								window.location.href="class-manager.html";
-							}else{
-								alert(data.msg);
+					layer.confirm("确定删除班级信息吗",  {icon: 3, title:'提示'}, function(cindex){
+						delclass(id);
+						layer.close(cindex);
+					}, function(cindex){
+						layer.close(cindex);
+					});
+					function delclass(id){
+						$.ajax({
+							url:"admin/classes",
+							type:"post",
+							data:{"id":id,"_method":"delete"},
+							success:function(data){
+								if(data.success){
+									window.location.href="class-manager.html";
+								}else{
+									alert(data.msg);
+								}
 							}
-						}
-					}) 
+						}) 
+					} 
 				},
 				//编辑班级信息
 				edit(id){
@@ -185,6 +193,8 @@
 					success(data){
 						if(data.success){
 							classeses=data.data;
+						}else{
+							alert("获取数据失败，请检查登录状态")
 						}
 					}
 				})

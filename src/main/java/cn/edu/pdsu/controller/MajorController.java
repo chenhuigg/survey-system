@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import cn.edu.pdsu.aop.ConsumeToken;
+import cn.edu.pdsu.aop.ProduceToken;
 import cn.edu.pdsu.pojo.AjaxResult;
 import cn.edu.pdsu.pojo.Major;
 import cn.edu.pdsu.service.MajorService;
@@ -22,6 +24,7 @@ public class MajorController {
 	private MajorService majorService;
 	
 	//获得所有专业
+	@ProduceToken
 	@RequestMapping(value="/major",method=RequestMethod.GET)
 	public Object getMajors() {
 		List<Major> majors = majorService.getAllMajor();
@@ -29,6 +32,7 @@ public class MajorController {
 	}
 	
 	//新增专业
+	@ConsumeToken
 	@RequestMapping(value="/major",method=RequestMethod.POST)
 	public Object addMajor(String name) {
 		String id=UUID.randomUUID().toString();

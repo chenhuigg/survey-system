@@ -158,6 +158,8 @@
 					success:function(data){
 						if(data.success){
 							majors=data.data;
+						}else{
+							alert("获取数据失败，请检查登录状态");
 						}
 					}
 				})

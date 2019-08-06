@@ -81,6 +81,7 @@ public class ClassesController {
 	
 	
 	//查询班级-问卷信息
+	@ProduceToken
 	@RequestMapping(value="/classes-wj",method=RequestMethod.GET)
 	public Object getClassesByMajorIdAndGradeId(String major,String grade,String id) {
 		Map<String, String> map=new HashMap<String, String>();

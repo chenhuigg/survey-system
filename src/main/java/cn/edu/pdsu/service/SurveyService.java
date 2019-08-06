@@ -36,4 +36,8 @@ public class SurveyService {
 		return surveyMapper.getSurveyByGradeIdAndMajorId(map);
 	}
 
+	public String getTitleById(String id) {
+		return surveyMapper.getTitleById(id);
+	}
+
 }

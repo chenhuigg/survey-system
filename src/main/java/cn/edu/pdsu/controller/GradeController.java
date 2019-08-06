@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import cn.edu.pdsu.aop.ConsumeToken;
+import cn.edu.pdsu.aop.ProduceToken;
 import cn.edu.pdsu.pojo.AjaxResult;
 import cn.edu.pdsu.pojo.Grade;
 import cn.edu.pdsu.service.GradeService;
@@ -32,6 +34,7 @@ public class GradeController {
 	}
 	
 	//获取全部年级
+	@ProduceToken
 	@RequestMapping(value="/grade",method=RequestMethod.GET)
 	public Object getAllGrade() {
 		List<Grade> grades = gradeService.getAllGrade();
@@ -39,6 +42,7 @@ public class GradeController {
 	}
 	
 	//新增年级
+	@ConsumeToken
 	@RequestMapping(value="/grade",method=RequestMethod.POST)
 	public Object addMajor(String name) {
 		String id=UUID.randomUUID().toString();

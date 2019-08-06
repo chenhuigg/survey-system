@@ -37,6 +37,7 @@
 	<script type="text/javascript" src="bootstrap/js/bootstrap.min.js" ></script>
 	<script src="node_modules/vue/dist/vue.min.js"></script>
 	<script type="text/javascript" src="js/nav.js" ></script>
+	<script type="text/javascript" src="js/layer/layer.js" ></script>
 	<script type="text/javascript">
 		//渲染问卷列表
 		var surveys;
@@ -50,19 +51,27 @@
 				},
 				//删除
 				del(id){
-					$.ajax({
-						url:"admin/wj",
-						type:"post",
-						data:{"id":id,"_method":"delete"},
-						success:function(data){
-							if(data.success){
-								alert(data.msg);
-								window.location.href="list-wj.html";
-							}else{
-								alert(data.msg);
+					layer.confirm("确定删除问卷信息吗",  {icon: 3, title:'提示'}, function(cindex){
+						delwj(id);
+						layer.close(cindex);
+					}, function(cindex){
+						layer.close(cindex);
+					});
+					function delwj(id){
+						$.ajax({
+							url:"admin/wj",
+							type:"post",
+							data:{"id":id,"_method":"delete"},
+							success:function(data){
+								if(data.success){
+									alert(data.msg);
+									window.location.href="list-wj.html";
+								}else{
+									alert(data.msg);
+								}
 							}
-						}
-					})
+						})
+					}
 				}
 				
 			},
@@ -74,6 +83,8 @@
 					success:function(data){
 						if(data.success){
 							surveys=data.data;
+						}else{
+							alert("获取数据失败，请检查登录状态")
 						}
 					}
 				})

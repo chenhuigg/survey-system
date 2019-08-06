@@ -67,11 +67,11 @@ public class LoginController {
 	public Object isLogin(HttpSession session) {
 		Student student=(Student) session.getAttribute("student");
 		Admin admin=(Admin) session.getAttribute("admin");
-		if(student!=null) {
-			return AjaxResult.createBySuccessData(1);
-		}
 		if(admin!=null) {
 			return AjaxResult.createBySuccessData(0);
+		}
+		if(student!=null) {
+			return AjaxResult.createBySuccessData(1);
 		}
 		return AjaxResult.createByError();
 	}
